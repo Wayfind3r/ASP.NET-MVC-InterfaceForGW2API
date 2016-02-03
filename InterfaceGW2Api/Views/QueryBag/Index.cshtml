@@ -1,0 +1,26 @@
+﻿@using System.Web.UI.WebControls
+@model InterfaceGW2Api.Models.QueryBagIndexViewModel
+@{
+    ViewBag.Title = "Your Query Record";
+}
+
+<h2 style="text-align: center">@ViewBag.Title</h2>
+
+Add Query Display UI here
+@foreach (var query in Model.QueryBag.QueryResults)
+{
+    <a>Place Query Graph here</a>
+    <td>
+        @using (Html.BeginForm("RemoveFromQueryBag", "QueryBag"))
+        {
+            @Html.Hidden("QueryId", query.QueryId)
+            @Html.HiddenFor(x=>x.ReturnUrl)
+            <input class="btn btn-sm btn-warning" type="submit" value="Remove"/>
+        }
+    </td>
+}
+
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">Add more Queries...</a>
+</div>
+

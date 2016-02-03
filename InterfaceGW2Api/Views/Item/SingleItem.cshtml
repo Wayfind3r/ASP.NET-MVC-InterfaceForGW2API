@@ -1,0 +1,104 @@
+﻿@model InterfaceGW2Api.Models.CompleteItemViewModel
+
+@{
+    ViewBag.Title = "SingleItem";
+}
+
+<h2>SingleItem</h2>
+
+<div>
+    <h4>CompleteItemViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @if (String.IsNullOrEmpty(Model.description))
+            {
+                if (String.IsNullOrEmpty(Model.details.description))
+                {
+                  <label>No description available.</label>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.details.description)
+                }
+            }
+            else
+            {
+               @Html.DisplayFor(model => model.description)
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rarity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rarity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vendor_value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vendor_value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.default_skin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.default_skin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.chat_link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.chat_link)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.icon)
+        </dt>
+
+        <dd>
+            <img class="thumbnail" src="@Model.icon" alt="NoIcon" />
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

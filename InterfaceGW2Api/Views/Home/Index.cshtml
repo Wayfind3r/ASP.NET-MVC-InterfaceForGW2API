@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "GW2 Api Interface";
+}
+
+<div>
+    <h2 style="text-align: center">@ViewBag.Title</h2>
+    <div class="col-md-12" style="margin-bottom: 5px; text-align: center">
+        <h4>
+            The goal of this site is to provide an easy to use Interface for GW2 Api.
+        </h4>
+        <h4>
+            GW2 Api is a free service provided by ArenaNet for their MMO RPG Guild Wars 2.
+        </h4>
+        <h4>
+            More Information about GW2 Api can be found on the link bellow.
+        </h4>
+        <p><a class="btn btn-default" href="https://wiki.guildwars2.com/wiki/API:Main">Learn more &raquo;</a>
+        </p>
+
+        @using (Html.BeginForm("AddToQueryBag", "QueryBag"))
+        {
+            <div class="pull-right">
+                @*@Html.HiddenFor(x=>x.QueryId)*@
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <input type="submit" class="btn btn-success" value="Record Query"/>
+            </div>
+        }
+    </div>
+</div>

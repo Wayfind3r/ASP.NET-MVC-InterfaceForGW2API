@@ -1,0 +1,11 @@
+﻿@model InterfaceGW2Api.Models.QueryBag
+
+<div class="navbar-right">
+    @Html.ActionLink("View your Queries", "Index", "QueryBag",
+        new {returnUrl = Request.Url.PathAndQuery},
+        new {@class = "btn btn-default navbar-btn"})
+    <div class="navbar-text navbar-right">
+        @Model.QueryResults.Count() queries
+    </div>
+</div>
+

@@ -1,0 +1,83 @@
+﻿@model InterfaceGW2Api.Models.CompleteItemViewModel
+
+@{
+    ViewBag.Title = "ArmorView";
+}
+
+@section Scripts{
+
+}
+<div class="col-md-12">
+    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+        <div class="" style="margin: 10px;">
+            <img class="text-center" src="@Model.icon" alt="NoIcon" />
+            <h4>@Model.name</h4>
+            <h6>@Model.details.weight_class @Model.details.type</h6>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="well gradient " style="margin: 10px;">
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.description)</dt>
+                <dd>
+                    @if (String.IsNullOrEmpty(Model.description))
+                    {
+                        if (String.IsNullOrEmpty(Model.details.description))
+                        {<label>No description available.</label>}
+                        else
+                        {@Html.DisplayFor(model => model.details.description)
+                        }
+                    }
+                    else
+                    {@Html.DisplayFor(model => model.description)
+                    }
+                </dd>
+
+                <dt>@Html.DisplayNameFor(model => model.level)</dt>
+                <dd>@Html.DisplayFor(model => model.level)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.rarity)</dt>
+                <dd>@Html.DisplayFor(model => model.rarity)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.details.defense)</dt>
+                <dd>@Html.DisplayFor(model => model.details.defense)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.vendor_value)</dt>
+                <dd>@Html.DisplayFor(model => model.vendor_value)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.chat_link)</dt>
+                <dd>@Html.DisplayFor(model => model.chat_link)</dd>
+            </dl>
+        </div>
+        <div style="text-align: center;">
+            <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices)</h5>
+            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; text-align: center">
+                <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices.sells)</h5>
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayNameFor(model => model.ItemPrices.sells.quantity)</dt>
+                    <dd>@Html.DisplayFor(model => model.ItemPrices.sells.quantity)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.ItemPrices.sells.unit_price)</dt>
+                    <dd>@Html.DisplayFor(model => model.ItemPrices.sells.unit_price)</dd>
+                </dl>
+            </div>
+            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; text-align: center">
+                <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices.buys)</h5>
+                <dl class="dl-horizontal">
+                    <dt>@Html.DisplayNameFor(model => model.ItemPrices.buys.quantity)</dt>
+                    <dd>@Html.DisplayFor(model => model.ItemPrices.buys.quantity)</dd>
+                    <dt>@Html.DisplayNameFor(model => model.ItemPrices.buys.unit_price)</dt>
+                    <dd>@Html.DisplayFor(model => model.ItemPrices.buys.unit_price)</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-xs-12 col-sm-12 navbar-text">
+    <div class="well gradient " style="margin: 10px;">
+        
+        <p>
+            @Html.ActionLink("Edit", "Edit", new {id = Model.id}) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    </div>
+</div>
