@@ -16,6 +16,22 @@ namespace InterfaceGW2Api.Services
         private const string WebApiGetItemName = "http://api.gw2tp.com/1/bulk/items-names.json";
         private const string GW2ApiItem = "https://api.guildwars2.com/v2/items/";
         private const string GW2ApiItemPrices = "https://api.guildwars2.com/v2/commerce/prices/";
+        private const string GW2ApiItemListings = "https://api.guildwars2.com/v2/commerce/listings/";
+
+        public ListingsViewModel GetItemListingsViewModel(int itemId)
+        {
+            var httpWebRequest = (HttpWebRequest) WebRequest.Create(GW2ApiItemListings + itemId);
+            httpWebRequest.Method = "GET";
+            var result = new ListingsViewModel();
+            var response = httpWebRequest.GetResponse();
+            using (var responseStream = response.GetResponseStream())
+            {
+                var reader = new StreamReader(responseStream, Encoding.UTF8);
+                result = JsonConvert.DeserializeObject<ListingsViewModel>(reader.ReadToEnd());
+            }
+            return result;
+        }
+
         public List<SimpleItemViewModel> GetItemViewModels()
         {
             var httpWebRequest = (HttpWebRequest) WebRequest.Create(WebApiGetItemName);

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Protocols;
+using InterfaceGW2Api.Models;
 using InterfaceGW2Api.Services;
 
 namespace InterfaceGW2Api.Controllers
@@ -15,6 +17,7 @@ namespace InterfaceGW2Api.Controllers
             itemServices = new ItemServices();
         }
         // GET: Item
+        [HttpGet]
         public ActionResult SingleItem(int itemId)
         {
             var model = itemServices.GetCompleteItemViewModel(itemId);
@@ -25,7 +28,13 @@ namespace InterfaceGW2Api.Controllers
             }
             return View(model);
         }
-
+        [HttpGet]
+        public ActionResult SingleItemListings(int itemId)
+        {
+            var model = new ListingChartViewModel(itemServices.GetItemListingsViewModel(itemId));
+            return View(model);
+        }
+        [HttpGet]
         public ActionResult ArmorView(int armorId)
         {
             var model = itemServices.GetCompleteItemViewModel(armorId);

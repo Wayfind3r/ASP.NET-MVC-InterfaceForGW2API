@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Infrastructure\Binders\QueryBagModelBinder.cs" />
     <Compile Include="Models\CompleteItemViewModel.cs" />
+    <Compile Include="Models\ListingsItemViewModel.cs" />
     <Compile Include="Models\SimpleItemViewModel.cs" />
     <Compile Include="Models\QueryBag.cs" />
     <Compile Include="Models\QueryBagIndexViewModel.cs" />
@@ -156,14 +157,17 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\DualAxesDarkUnica.js" />
+    <Content Include="Scripts\HighchartsDarkUnica.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\listingschart.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -186,6 +190,7 @@
     <Content Include="Views\Search\Items.cshtml" />
     <Content Include="Views\Item\SingleItem.cshtml" />
     <Content Include="Views\Item\ArmorView.cshtml" />
+    <Content Include="Views\Item\SingleItemListings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

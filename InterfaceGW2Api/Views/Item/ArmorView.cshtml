@@ -5,7 +5,30 @@
 }
 
 @section Scripts{
+    @*Add Chart*@
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(document).on('click', '.displayListings', function(e) {
+                e.preventDefault();
+                var _self = $(this);
+                var dataUrl = _self.data('url');
 
+                $.ajax({
+                    type: 'GET',
+                    url: dataUrl,
+                    cashe: false,
+                    success: function(e) {
+                        var content = [];
+                        content.push(e);
+
+                        $('#listings').html(content.join(''));
+                    },
+                    error: function () {}
+                });
+                return;
+            });
+        });
+    </script>
 }
 <div class="col-md-12">
     <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
@@ -74,7 +97,14 @@
 </div>
 <div class="col-md-12 col-xs-12 col-sm-12 navbar-text">
     <div class="well gradient " style="margin: 10px;">
-        
+        @Html.ActionLink(Model.name, "SingleItemListings", "Item",
+       new { itemId = Model.id },
+       new { @class = "btn btn-info btn-xs", @style = "margin: 2px;" })
+
+        <a class="btn btn-primary btn-xs displayListings" data-url="@Url.Action("SingleItemListings", "Item", new {itemId = Model.id})">Show Listings</a>
+        <div id="listings">
+
+        </div>
         <p>
             @Html.ActionLink("Edit", "Edit", new {id = Model.id}) |
             @Html.ActionLink("Back to List", "Index")
