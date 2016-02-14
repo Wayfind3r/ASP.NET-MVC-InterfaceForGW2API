@@ -97,5 +97,8 @@ namespace InterfaceGW2Api.Models
         public string icon { get; set; }
         [Display(Name = "Details")]
         public Details details { get; set; }
+
+        public ListingChartViewModel ListingChartViewModel { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

@@ -18,27 +18,24 @@ namespace InterfaceGW2Api.Controllers
         }
         // GET: Item
         [HttpGet]
-        public ActionResult SingleItem(int itemId)
+        public ActionResult SingleItem(int itemId, string returnUrl)
         {
             var model = itemServices.GetCompleteItemViewModel(itemId);
             switch (model.type)
             {
                 case "Armor":
-                    return RedirectToAction("ArmorView", new { armorId = itemId });
+                    return RedirectToAction("ArmorView", new { armorId = itemId, returnUrl = returnUrl });
             }
             return View(model);
         }
+        
         [HttpGet]
-        public ActionResult SingleItemListings(int itemId)
-        {
-            var model = new ListingChartViewModel(itemServices.GetItemListingsViewModel(itemId));
-            return View(model);
-        }
-        [HttpGet]
-        public ActionResult ArmorView(int armorId)
+        public ActionResult ArmorView(int armorId, string returnUrl)
         {
             var model = itemServices.GetCompleteItemViewModel(armorId);
             model.ItemPrices = itemServices.GetItemPrices(armorId);
+            model.ListingChartViewModel = new ListingChartViewModel(itemServices.GetItemListingsViewModel(armorId));
+            model.ReturnUrl = returnUrl;
             return View(model);
         }
     }

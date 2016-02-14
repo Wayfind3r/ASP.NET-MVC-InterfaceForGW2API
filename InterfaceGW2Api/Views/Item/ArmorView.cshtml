@@ -6,34 +6,164 @@
 
 @section Scripts{
     @*Add Chart*@
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $(document).on('click', '.displayListings', function(e) {
-                e.preventDefault();
-                var _self = $(this);
-                var dataUrl = _self.data('url');
-
-                $.ajax({
-                    type: 'GET',
-                    url: dataUrl,
-                    cashe: false,
-                    success: function(e) {
-                        var content = [];
-                        content.push(e);
-
-                        $('#listings').html(content.join(''));
+    
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+@Scripts.Render("~/Scripts/HighchartsDarkUnica.js")
+@*chart*@
+<script type="text/javascript">
+    $(function () {
+        legend_with_values = [];
+        $(document).ready(function () {
+            $('#buycontainer').highcharts({
+                chart: {zoomType: 'xy'},
+                title: {text: 'Buy listings'},
+                subtitle: {text: 'Source: https://wiki.guildwars2.com/wiki/API:Main'},
+                xAxis: [{
+                    categories: legend_with_values,
+                    crosshair: true
+                }],
+                yAxis: [{ // Primary yAxis
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[1]}
                     },
-                    error: function () {}
-                });
-                return;
+                    title: {
+                        text: 'Price',
+                        style: {color: Highcharts.getOptions().colors[1]}
+                    }
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'Quantity',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    opposite: true
+                },
+                { // Secondary yAxis
+                    title: {
+                        text: 'Listings',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    opposite: true
+                }],
+                tooltip: {shared: true},
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    x: 120,
+                    verticalAlign: 'top',
+                    y: 100,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                series: [{
+                    name: 'Listings',
+                    type: 'column',
+                    yAxis: 1,
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.BuyListingsInts)),
+                    tooltip: {valueSuffix: ''}
+                }, {
+                    name: 'Price',
+                    type: 'spline',
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.BuyPriceInts)),
+                    tooltip: {valueSuffix: ''}
+                },
+                {
+                    name: 'Quantity',
+                    type: 'spline',
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.BuyQuantityInts)),
+                    tooltip: {valueSuffix: ''}
+                }]
             });
         });
-    </script>
+        $(document).ready(function () {
+            $('#sellcontainer').highcharts({
+                chart: {zoomType: 'xy'
+                },
+                title: {text: 'Sell listings'
+                },
+                subtitle: {text: 'Source: https://wiki.guildwars2.com/wiki/API:Main'
+                },
+                xAxis: [{
+                    categories: legend_with_values,
+                    crosshair: true
+                }],
+                yAxis: [{ // Primary yAxis
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[1]}
+                    },
+                    title: {
+                        text: 'Price',
+                        style: {color: Highcharts.getOptions().colors[1]}
+                    }
+                }, { // Secondary yAxis
+                    title: {
+                        text: 'Quantity',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    opposite: true
+                },
+                { // Secondary yAxis
+                    title: {
+                        text: 'Listings',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    labels: {
+                        format: '{value}',
+                        style: {color: Highcharts.getOptions().colors[0]}
+                    },
+                    opposite: true
+                }],
+                tooltip: {shared: true},
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    x: 120,
+                    verticalAlign: 'top',
+                    y: 100,
+                    floating: true,
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+                },
+                series: [{
+                    name: 'Listings',
+                    type: 'column',
+                    yAxis: 1,
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.SellListingInts)),
+                    tooltip: {valueSuffix: ''}
+                }, {
+                    name: 'Price',
+                    type: 'spline',
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.SellPriceInts)),
+                    tooltip: {valueSuffix: ''}
+                },
+                {
+                    name: 'Quantity',
+                    type: 'spline',
+                    data: @Html.Raw(Json.Encode(Model.ListingChartViewModel.SellQuantityInts)),
+                    tooltip: {valueSuffix: ''}
+                }]
+            });
+        });
+    });
+</script>
 }
 <div class="col-md-12">
     <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
         <div class="" style="margin: 10px;">
-            <img class="text-center" src="@Model.icon" alt="NoIcon" />
+            <img class="text-center" src="@Model.icon" alt="NoIcon"/>
             <h4>@Model.name</h4>
             <h6>@Model.details.weight_class @Model.details.type</h6>
         </div>
@@ -74,7 +204,7 @@
         </div>
         <div style="text-align: center;">
             <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices)</h5>
-            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; text-align: center">
+            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; margin-bottom: 15px; text-align: center">
                 <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices.sells)</h5>
                 <dl class="dl-horizontal">
                     <dt>@Html.DisplayNameFor(model => model.ItemPrices.sells.quantity)</dt>
@@ -83,7 +213,7 @@
                     <dd>@Html.DisplayFor(model => model.ItemPrices.sells.unit_price)</dd>
                 </dl>
             </div>
-            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; text-align: center">
+            <div class="col-md-5 col-sm-5 well gradient" style="margin: 4%; margin-top: 0px; margin-bottom: 15px; text-align: center">
                 <h5 style="font-weight: bold">@Html.DisplayNameFor(model => model.ItemPrices.buys)</h5>
                 <dl class="dl-horizontal">
                     <dt>@Html.DisplayNameFor(model => model.ItemPrices.buys.quantity)</dt>
@@ -95,19 +225,15 @@
         </div>
     </div>
 </div>
+@if (!String.IsNullOrEmpty(Model.ReturnUrl))
+{
+    <p class="col-md-12 text-center">
+        <a class="btn btn-primary" href="@Model.ReturnUrl">Back</a>
+    </p>
+}
 <div class="col-md-12 col-xs-12 col-sm-12 navbar-text">
     <div class="well gradient " style="margin: 10px;">
-        @Html.ActionLink(Model.name, "SingleItemListings", "Item",
-       new { itemId = Model.id },
-       new { @class = "btn btn-info btn-xs", @style = "margin: 2px;" })
-
-        <a class="btn btn-primary btn-xs displayListings" data-url="@Url.Action("SingleItemListings", "Item", new {itemId = Model.id})">Show Listings</a>
-        <div id="listings">
-
-        </div>
-        <p>
-            @Html.ActionLink("Edit", "Edit", new {id = Model.id}) |
-            @Html.ActionLink("Back to List", "Index")
-        </p>
+        <div id="buycontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div id="sellcontainer" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
     </div>
 </div>

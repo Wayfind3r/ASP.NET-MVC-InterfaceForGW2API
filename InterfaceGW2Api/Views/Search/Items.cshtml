@@ -20,8 +20,8 @@
 <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
     @foreach (var item in Model)
     {
-        @Html.ActionLink(item.Name, "SingleItem", "Item", 
-       new {itemId = item.Id}, 
+        @Html.ActionLink(item.Name, "SingleItem", "Item",
+       new {itemId = item.Id, returnUrl = Request.Url.PathAndQuery},
        new {@class = "btn btn-info btn-xs", @style = "margin: 2px;"})
     }
 </div>
